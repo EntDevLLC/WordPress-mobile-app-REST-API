@@ -3,10 +3,10 @@
 
 [logo]: https://tech-labs.co/img/logo.png "Tech Labs"
 
-Easily Using the WordPress REST API in a mobile app
+Easily Using the WordPress REST API in a mobile app by extended WordPress REST API Library Edit
 
 ## Installation
-Upload the plugin to your wordpress, Activate it, then use you API.
+Upload the plugin to your wordpress, Activate it, Then use you API.
 
 1, 2, 3: You\'re done!
 
@@ -24,6 +24,10 @@ Service name space is `/tech-labs/v1` you request throw `https://yourwebsite.com
 | Verifiy login information | /tech-labs/v1/users/make_authenticate | send `username` , `password` |
 | Register new user | /tech-labs/v1/users/register | send `username` , `password` , `email` , `fullname` |
 
+### ToDo
+* Menus
+* Setting
+* Sidebars
 
 ### Version
 1.0
