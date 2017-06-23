@@ -30,7 +30,7 @@ Service name space is `/tech-labs/v1` you request throw `https://yourwebsite.com
 
 Author
 ----
-[Ibrahim Mohamed Abotaleb](https://www.mrkindy.com)
+[Ibrahim Mohamed Abotaleb](https://www.mrkindy.com) find me on GitHub [@mrkindy](https://github.com/mrkindy)
 
 License
 ----
