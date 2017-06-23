@@ -3,7 +3,7 @@
 Easily Using the WordPress REST API in a mobile app
 
 ## Installation
-Upload the plugin to your wordpress, Activate it, then build your home page from pages section.
+Upload the plugin to your wordpress, Activate it, then use you API.
 
 1, 2, 3: You\'re done!
 
