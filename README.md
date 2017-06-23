@@ -28,7 +28,10 @@ Service name space is `/tech-labs/v1` you request throw `https://yourwebsite.com
 ### Version
 1.0
 
+Author
+----
+[Ibrahim Mohamed Abotaleb](https://www.mrkindy.com)
+
 License
 ----
-
 GPL v2
