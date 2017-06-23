@@ -1,5 +1,5 @@
 # WordPress mobile app REST API
-[![alt text](https://tech-labs.co/img/logo.png "Tech Labs")](https://tech-labs.co){:target="_blank"}
+[![alt text](https://tech-labs.co/img/logo.png "Tech Labs")](https://tech-labs.co)
 
 
 Easily Using the WordPress REST API in a mobile app by extended WordPress REST API Library Edit
