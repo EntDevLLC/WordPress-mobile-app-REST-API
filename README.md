@@ -1,5 +1,5 @@
 # WordPress mobile app REST API
-
+[logo]: https://tech-labs.co/img/logo.png "Tech Labs"
 Easily Using the WordPress REST API in a mobile app
 
 ## Installation
