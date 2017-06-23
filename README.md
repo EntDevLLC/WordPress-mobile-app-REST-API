@@ -11,7 +11,7 @@ Upload the plugin to your wordpress, Activate it, Then use you API.
 1, 2, 3: You\'re done!
 
 ## How to use
-Service name space is `/tech-labs/v1` you request throw `https://yourwebsite.com/wp-json/tech-labs/v1/anyResourceYouWant`
+Service name space is `/tech-labs/v1` you can request throw `https://yourwebsite.com/wp-json/tech-labs/v1/anyResourceYouWant`
 
 #### API Calls
 | Proccess  | Base Route | Notes |
