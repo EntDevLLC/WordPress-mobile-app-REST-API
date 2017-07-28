@@ -59,3 +59,18 @@ function tl_register_comments_rest_routes() {
     $controller->register_routes();
 }
 add_action( 'rest_api_init', 'tl_register_comments_rest_routes' );
+
+require 'api/menus.php';
+/**
+ * Function to register Menus API.
+ */
+function tl_register_menus_rest_routes() {
+    $controller = new Tech_Labs_Menus_Controller();
+    $controller->register_routes();
+}
+add_action( 'rest_api_init', 'tl_register_menus_rest_routes' );
+
+/**
+ * Register Mobile Menu.
+ */
+register_nav_menu( 'Mobile', __( 'Mobile Menu', 'tl-json' ) );

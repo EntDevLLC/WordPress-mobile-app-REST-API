@@ -130,7 +130,7 @@ class Tech_Labs_Posts_Controller {
         }
  
         if ( isset( $schema['properties']['title'] ) ) {
-            $post_data['title'] = strip_tags(apply_filters( 'the_title', $post->post_title, $post ));
+            $post_data['title'] = preg_replace("/&#?[a-z0-9]{2,8};/i","",strip_tags(apply_filters( 'the_title', $post->post_title, $post )));
         }
  
         if ( isset( $schema['properties']['date'] ) ) {
@@ -138,7 +138,7 @@ class Tech_Labs_Posts_Controller {
         }
  
         if ( isset( $schema['properties']['content'] ) ) {
-            $post_data['content'] = strip_tags(apply_filters( 'the_content', $post->post_content, $post ));
+            $post_data['content'] = preg_replace("/&#?[a-z0-9]{2,8};/i","",strip_tags(apply_filters( 'the_content', $post->post_content, $post )));
         }
  
         if ( isset( $schema['properties']['comments_count'] ) ) {
@@ -147,7 +147,7 @@ class Tech_Labs_Posts_Controller {
  
         if ( isset( $schema['properties']['views_count'] )) {
     
-            $post_data['views_count'] = (int)get_post_meta( $post->ID, 'views', true );
+            $post_data['views_count'] = (int)get_post_meta( $post->ID, 'post_views_count', true );
         }
  
         if ( isset( $schema['properties']['future_image'] )) {
