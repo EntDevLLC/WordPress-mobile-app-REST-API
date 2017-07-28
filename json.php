@@ -3,7 +3,7 @@
 Plugin Name: WordPress mobile app REST API
 Description: Easily Using the WordPress REST API in a mobile app
 Author: Ibrahim Mohamed Abotaleb
-Version: 1.0
+Version: 1.1
 Author URI: http://mrkindy.com/
 Text Domain: tl-json
 Domain Path: /languages
@@ -60,6 +60,9 @@ function tl_register_comments_rest_routes() {
 }
 add_action( 'rest_api_init', 'tl_register_comments_rest_routes' );
 
+/**
+ * Menus API.
+ */
 require 'api/menus.php';
 /**
  * Function to register Menus API.
@@ -69,6 +72,19 @@ function tl_register_menus_rest_routes() {
     $controller->register_routes();
 }
 add_action( 'rest_api_init', 'tl_register_menus_rest_routes' );
+
+/**
+ * Pages API.
+ */
+require 'api/pages.php';
+/**
+ * Function to register Menus API.
+ */
+function tl_register_pages_rest_routes() {
+    $controller = new Tech_Labs_Pages_Controller();
+    $controller->register_routes();
+}
+add_action( 'rest_api_init', 'tl_register_pages_rest_routes' );
 
 /**
  * Register Mobile Menu.

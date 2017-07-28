@@ -1,81 +1,79 @@
 <?php
-class Tech_Labs_Menus_Controller {
+class Tech_Labs_Pages_Controller {
  
     // Here initialize our namespace and resource name.
     public function __construct() {
         $this->namespace     = '/tech-labs/v1';
-        $this->resource_name = 'menus';
+        $this->resource_name = 'pages';
     }
  
     // Register our routes.
     public function register_routes() {
-        register_rest_route( $this->namespace, '/' . $this->resource_name, array(
-            // Here we register the readable endpoint for collections.
+        register_rest_route( $this->namespace, '/' . $this->resource_name . '/(?P<id>[\d]+)', array(
+            // Notice how we are registering multiple endpoints the 'schema' equates to an OPTIONS request.
             array(
                 'methods'   => 'GET',
-                'callback'  => array( $this, 'get_items' ),
-                'permission_callback' => array( $this, 'get_items_permissions_check' ),
+                'callback'  => array( $this, 'get_item' ),
+                'permission_callback' => array( $this, 'get_item_permissions_check' ),
             ),
             // Register our schema callback.
             'schema' => array( $this, 'get_item_schema' ),
         ) );
     }
- 
     /**
-     * Check permissions for the posts.
+     * Check permissions for the pages.
      *
      * @param WP_REST_Request $request Current request.
      */
-    public function get_items_permissions_check( $request ) {
-        if ( get_option('close_json_menus') ) {
-            return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.' ), array( 'status' => $this->authorization_status_code() ) );
+    public function get_item_permissions_check( $request ) {
+        if ( get_option('close_json_pages') ) {
+            return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the page resource.' ), array( 'status' => $this->authorization_status_code() ) );
         }
         return true;
     }
  
     /**
-     * Grabs the five most recent posts and outputs them as a rest response.
+     * Grabs the five most recent pages and outputs them as a rest response.
      *
      * @param WP_REST_Request $request Current request.
      */
-    public function get_items( $request ) {
-        $menu_name = $request->get_param( 'menu' ) ? $request->get_param( 'menu' ) : 'Mobile';
-        $locations = get_nav_menu_locations();
-        $menu_id = $locations[ $menu_name ] ;
-        $menus = wp_get_nav_menu_items($menu_id);
-        if ( empty( $menus ) ) {
-            return rest_ensure_response( $data );
+    public function get_item( $request ) {
+        $id = (int) $request['id'];
+        $page = get_post( $id );
+ 
+        if ( empty( $page ) ) {
+            return rest_ensure_response( array() );
         }
  
-        foreach ( $menus as $menu ) {
-            $response = $this->prepare_item_for_response( $menu, $request );
-            $data[] = $this->prepare_response_for_collection( $response );
-        }
+        $response = $this->prepare_item_for_response( $page, $request );
  
-        // Return all of our posts response data.
-        return rest_ensure_response( $data );
+        // Return all of our page response data.
+        return $response;
     }
  
     /**
-     * Matches the post data to the schema we want.
+     * Matches the page data to the schema we want.
      *
-     * @param WP_Post $post The comment object whose response is being prepared.
+     * @param WP_Page $page The comment object whose response is being prepared.
      */
-    public function prepare_item_for_response( $menu, $request ) {
+    public function prepare_item_for_response( $page, $request ) {
         $schema = $this->get_item_schema( $request );
         if ( isset( $schema['properties']['id'] ) ) {
-            $post_data['id'] = (int) $menu->ID;
+            $page_data['id'] = (int) $page->ID;
         }
  
         if ( isset( $schema['properties']['title'] ) ) {
-            $post_data['title'] = $menu->title;
+            $page_data['title'] = preg_replace("/&#?[a-z0-9]{2,8};/i","",strip_tags(apply_filters( 'the_title', $page->post_title, $page )));
         }
  
-        if ( isset( $schema['properties']['type'] ) ) {
-            $post_data['type'] = $menu->object;
+        if ( isset( $schema['properties']['content'] ) ) {
+            $page_data['content'] = preg_replace("/&#?[a-z0-9]{2,8};/i","",strip_tags(apply_filters( 'the_content', $page->post_content, $page )));
         }
- 
-        return rest_ensure_response( $post_data );
+        if ( isset( $schema['properties']['future_image'] )) {
+    
+            $page_data['future_image'] = get_the_post_thumbnail_url( $page->ID, 'full' );
+        }
+        return rest_ensure_response( $page_data );
     }
  
     /**
@@ -108,7 +106,7 @@ class Tech_Labs_Menus_Controller {
     }
  
     /**
-     * Get our sample schema for a menus.
+     * Get our sample schema for a page.
      *
      * @param WP_REST_Request $request Current request.
      */
@@ -117,7 +115,7 @@ class Tech_Labs_Menus_Controller {
             // This tells the spec of JSON Schema we are using which is draft 4.
             '$schema'              => 'http://json-schema.org/draft-04/schema#',
             // The title property marks the identity of the resource.
-            'title'                => 'menus',
+            'title'                => 'page',
             'type'                 => 'object',
             // In JSON Schema you can specify object properties in the properties attribute.
             'properties'           => array(
@@ -128,16 +126,32 @@ class Tech_Labs_Menus_Controller {
                     'readonly'     => true,
                 ),
                 'title' => array(
-                    'description'  => esc_html__( 'The menu item title.', 'tl-json' ),
+                    'description'  => esc_html__( 'The content title.', 'tl-json' ),
                     'type'         => 'string',
                 ),
-                'type' => array(
-                    'description'  => esc_html__( 'The menu item type.', 'tl-json' ),
+                'future_image' => array(
+                    'description'  => esc_html__( 'The content future image.', 'tl-json' ),
+                    'type'         => 'array',
+                ),
+                'content' => array(
+                    'description'  => esc_html__( 'The content for the object.', 'tl-json' ),
                     'type'         => 'string',
                 )
             ),
         );
  
         return $schema;
+    }
+ 
+    // Sets up the proper HTTP status code for authorization.
+    public function authorization_status_code() {
+ 
+        $status = 401;
+ 
+        if ( is_user_logged_in() ) {
+            $status = 403;
+        }
+ 
+        return $status;
     }
 }

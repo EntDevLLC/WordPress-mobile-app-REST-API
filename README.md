@@ -17,20 +17,20 @@ Service name space is `/tech-labs/v1` you can request throw `https://yourwebsite
 | ------------- | ------------- | ------------- |
 | Get posts  | /tech-labs/v1/posts | you can make send get or post parm `order` , `orderby` , `per_page` , `page` , `category` |
 | Get post item  | /tech-labs/v1/posts/(:id) | only send post ID parm `id` |
+| Get page item  | /tech-labs/v1/pages/(:id) | only send page ID parm `id` |
 | Get categories  | /tech-labs/v1/categories | you can make send get or post parm `order` , `orderby` , `hide_empty` |
 | Get post comments  | /tech-labs/v1/comments/(:id) | only send post ID parm `id` |
 | Make user comment | /tech-labs/v1/comments/make_comment | send `post_id` , `username` , `password` , `content` for registered users and `post_id` , `fullname` , `content` for geust comment |
 | Verifiy login information | /tech-labs/v1/users/make_authenticate | send `username` , `password` |
 | Register new user | /tech-labs/v1/users/register | send `username` , `password` , `email` , `fullname` |
-| Get mobile nav menu items | /tech-labs/v1/menus | |
+| Get mobile nav menu items | /tech-labs/v1/menus | send `username` contian menu location |
 
 ### ToDo
-* Pages
 * Setting
 * Sidebars
 
 ### Version
-1.0
+1.1
 
 Author
 ----
