@@ -22,9 +22,10 @@ Service name space is `/tech-labs/v1` you can request throw `https://yourwebsite
 | Make user comment | /tech-labs/v1/comments/make_comment | send `post_id` , `username` , `password` , `content` for registered users and `post_id` , `fullname` , `content` for geust comment |
 | Verifiy login information | /tech-labs/v1/users/make_authenticate | send `username` , `password` |
 | Register new user | /tech-labs/v1/users/register | send `username` , `password` , `email` , `fullname` |
+| Get mobile nav menu items | /tech-labs/v1/menus | |
 
 ### ToDo
-* Menus
+* Pages
 * Setting
 * Sidebars
 
