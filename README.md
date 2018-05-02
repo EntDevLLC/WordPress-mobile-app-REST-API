@@ -1,5 +1,5 @@
 # WordPress mobile app REST API
-[![alt text](https://ed.com.eg/images/logo.png "Tech Labs")](https://ed.com.eg)
+[![alt text](https://ed.com.eg/images/logo.png "Enterprise Development")](https://ed.com.eg)
 
 
 Easily Using the WordPress REST API in a mobile app by extended WordPress REST API Library Edit
